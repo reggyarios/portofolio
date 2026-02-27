@@ -3,10 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Reggy Arauna Aritonang | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Welcome to my Portfolio</h1>
-    <p>Currently under construction!</p>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased selection:bg-blue-500 selection:text-white">
+
+    <nav class="p-6 max-w-5xl mx-auto flex justify-between items-center">
+        <div class="text-xl font-bold tracking-wider text-white">RAA.</div>
+        <a href="/access.html" class="text-sm text-gray-400 hover:text-white transition">Admin Login</a>
+    </nav>
+
+    <header class="max-w-5xl mx-auto px-6 py-20 flex flex-col justify-center min-h-[50vh]">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-4">
+            Building Immersive <br> <span class="text-blue-500">Digital Worlds.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mb-8">
+            Professional Game Developer & Environment Builder. Specializing in Lua scripting, 3D reconstruction pipelines, and high-fidelity interactive experiences.
+        </p>
+    </header>
+
+    <section class="max-w-5xl mx-auto px-6 pb-24">
+        <h2 class="text-2xl font-bold text-white mb-8 border-b border-gray-800 pb-4">Featured Projects</h2>
+        
+        <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div class="bg-gray-800 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/20 transition duration-300 border border-gray-700">
+                <div class="h-48 bg-gray-700 flex items-center justify-center text-gray-500">[Image Placeholder]</div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2">THE DOME</h3>
+                    <p class="text-gray-400 text-sm mb-4">A social hangout experience with integrated music systems and interactive environments.</p>
+                    <div class="flex gap-2 text-xs font-semibold text-blue-400">
+                        <span class="bg-blue-500/10 px-2 py-1 rounded">Roblox Studio</span>
+                        <span class="bg-blue-500/10 px-2 py-1 rounded">Lua</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/20 transition duration-300 border border-gray-700">
+                <div class="h-48 bg-gray-700 flex items-center justify-center text-gray-500">[Image Placeholder]</div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2">3D-Reconstructor</h3>
+                    <p class="text-gray-400 text-sm mb-4">Tool utilizing TripoSR and KD-Tree structures to convert 2D images into voxelized environments.</p>
+                    <div class="flex gap-2 text-xs font-semibold text-blue-400">
+                        <span class="bg-blue-500/10 px-2 py-1 rounded">Python</span>
+                        <span class="bg-blue-500/10 px-2 py-1 rounded">Deep Learning</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 </body>
 </html>
