@@ -5,68 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans antialiased min-h-screen">
+<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-300 min-h-screen">
 
-    <div id="login-screen" class="flex items-center justify-center h-screen px-6">
-        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700 w-full max-w-md">
-            <h2 class="text-2xl font-bold text-white mb-6 text-center">Admin Access</h2>
-            <form id="login-form" class="space-y-4">
+    <nav class="p-6 max-w-5xl mx-auto flex justify-end items-center border-b border-transparent">
+        <button id="theme-toggle" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
+            Toggle Theme
+        </button>
+    </nav>
+
+    <div id="login-screen" class="flex items-center justify-center h-[80vh] px-6">
+        <div class="p-10 border border-neutral-200 dark:border-neutral-800 w-full max-w-md bg-neutral-50 dark:bg-neutral-900/50">
+            <h2 class="text-xl font-extrabold tracking-widest uppercase text-center mb-10">Admin Access</h2>
+            <form id="login-form" class="space-y-8">
                 <div>
-                    <label class="block text-sm text-gray-400 mb-1">Email</label>
-                    <input type="email" id="email" class="w-full bg-gray-900 border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                    <label class="block text-xs tracking-widest uppercase text-neutral-500 mb-2">Email</label>
+                    <input type="email" id="email" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
                 </div>
                 <div>
-                    <label class="block text-sm text-gray-400 mb-1">Password</label>
-                    <input type="password" id="password" class="w-full bg-gray-900 border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                    <label class="block text-xs tracking-widest uppercase text-neutral-500 mb-2">Password</label>
+                    <input type="password" id="password" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
                 </div>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">
+                <button type="submit" class="w-full bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-4 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors mt-4">
                     Sign In
                 </button>
             </form>
         </div>
     </div>
 
-    <div id="dashboard-screen" class="max-w-5xl mx-auto px-6 py-12" style="display: none;">
-        <div class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4">
-            <h1 class="text-3xl font-bold text-white">Project Manager</h1>
-            <button id="logout-btn" class="text-sm text-red-400 hover:text-red-300 transition">Logout</button>
+    <div id="dashboard-screen" class="max-w-5xl mx-auto px-6 py-8" style="display: none;">
+        <div class="flex justify-between items-center mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-6">
+            <h1 class="text-2xl font-extrabold tracking-widest uppercase">Project Manager</h1>
+            <button id="logout-btn" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors">Logout</button>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
-            <h2 class="text-xl font-bold text-white mb-4">Add New Portfolio Item</h2>
-            <form id="add-project-form">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="proj-title" placeholder="Project Title" class="bg-gray-900 border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
-                    <input type="text" id="proj-image" placeholder="Image URL" class="bg-gray-900 border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
-                    <input type="text" id="proj-tech" placeholder="Tech Stack (e.g. Lua, Roblox Studio)" class="bg-gray-900 border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+        <div class="mb-16 border border-neutral-200 dark:border-neutral-800 p-8 bg-neutral-50 dark:bg-neutral-900/50">
+            <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 mb-8">Add New Item</h2>
+            <form id="add-project-form" class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <input type="text" id="proj-title" placeholder="Project Title" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
                     
-                    <input type="text" id="proj-demo" placeholder="Demo/Play Link (Optional)" class="bg-gray-900 border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500">
-                    
-                    <textarea id="proj-desc" placeholder="Project Description" class="bg-gray-900 border border-gray-700 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500 md:col-span-2 h-32" required></textarea>
+                    <div class="w-full">
+                        <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-1">Upload Image Cover</label>
+                        <input type="file" id="proj-image" accept="image/*" class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-widest file:bg-neutral-200 file:text-neutral-700 hover:file:bg-neutral-300 dark:file:bg-neutral-800 dark:file:text-neutral-300 dark:hover:file:bg-neutral-700 transition-colors cursor-pointer focus:outline-none" required>
+                    </div>
+
+                    <input type="text" id="proj-tech" placeholder="Tech Stack (comma separated)" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors md:col-span-2" required>
+                    <input type="text" id="proj-demo" placeholder="Demo/Play Link (Optional)" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors md:col-span-2">
+                    <textarea id="proj-desc" placeholder="Project Description" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors md:col-span-2 h-24 resize-none" required></textarea>
                 </div>
-                <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition">
+                <button type="submit" class="bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors mt-4">
                     Save Project
                 </button>
             </form>
         </div>
 
         <div>
-            <h2 class="text-xl font-bold text-white mb-4">Existing Projects</h2>
-            <div id="projects-list" class="space-y-2">
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <h3 class="font-bold text-white">THE DOME</h3>
-                        <p class="text-sm text-gray-400 truncate w-full max-w-md">Social hangout experience...</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white px-3 py-1 rounded text-sm transition">Edit</button>
-                        <button class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-3 py-1 rounded text-sm transition">Delete</button>
-                    </div>
-                </div>
+            <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 mb-6">Existing Projects</h2>
+            <div id="projects-list" class="space-y-4">
+                <p class="text-neutral-500 text-sm tracking-widest uppercase">Loading...</p>
             </div>
         </div>
     </div>
 
+    <script type="module" src="app.js"></script>
 </body>
 </html>
