@@ -112,7 +112,7 @@ async function initDetail() {
         actionButtonHTML = `
         <div id="action-button-container" class="pt-10 border-t border-neutral-200 dark:border-neutral-800">
             <a href="${proj.demo_url}" target="_blank" class="inline-flex items-center justify-center bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-4 px-10 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors">
-                Try Out / Visit Site &nearr;
+                Try Out / Visit Site
             </a>
         </div>`;
     }
