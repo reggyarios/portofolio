@@ -3,56 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Reggy Arauna Aritonang</title>
+    <title>Reggy Arauna Aritonang | Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media', 
+        }
+    </script>
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans antialiased selection:bg-blue-500 selection:text-white">
+<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-300">
 
-    <nav class="p-6 max-w-5xl mx-auto flex justify-between items-center">
-        <div class="text-xl font-bold tracking-wider text-white">RAA.</div>
-        <a href="/access.html" class="text-sm text-gray-400 hover:text-white transition">Admin Login</a>
+    <nav class="p-6 max-w-5xl mx-auto flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800">
+        <div class="text-xl font-extrabold tracking-widest uppercase">RAA.</div>
+        <a href="/access.html" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors">Admin</a>
     </nav>
 
-    <header class="max-w-5xl mx-auto px-6 py-20 flex flex-col justify-center min-h-[50vh]">
-        <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-4">
-            Building Immersive <br> <span class="text-blue-500">Digital Worlds.</span>
+    <header class="max-w-5xl mx-auto px-6 py-24 flex flex-col justify-center min-h-[50vh]">
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 leading-tight">
+            Building Immersive <br> 
+            <span class="text-neutral-400 dark:text-neutral-500">Digital Worlds.</span>
         </h1>
-        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mb-8">
+        <p class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed font-light">
             Professional Game Developer & Environment Builder. Specializing in Lua scripting, 3D reconstruction pipelines, and high-fidelity interactive experiences.
         </p>
     </header>
 
-    <section class="max-w-5xl mx-auto px-6 pb-24">
-        <h2 class="text-2xl font-bold text-white mb-8 border-b border-gray-800 pb-4">Featured Projects</h2>
+    <section class="max-w-5xl mx-auto px-6 pb-32">
+        <div class="flex justify-between items-end mb-10">
+            <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400">Selected Works</h2>
+        </div>
         
-        <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 gap-10">
             
-            <div class="bg-gray-800 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/20 transition duration-300 border border-gray-700">
-                <div class="h-48 bg-gray-700 flex items-center justify-center text-gray-500">[Image Placeholder]</div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-white mb-2">THE DOME</h3>
-                    <p class="text-gray-400 text-sm mb-4">A social hangout experience with integrated music systems and interactive environments.</p>
-                    <div class="flex gap-2 text-xs font-semibold text-blue-400">
-                        <span class="bg-blue-500/10 px-2 py-1 rounded">Roblox Studio</span>
-                        <span class="bg-blue-500/10 px-2 py-1 rounded">Lua</span>
+            <div class="group cursor-pointer">
+                <div class="w-full aspect-[4/3] bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 mb-6 group-hover:border-neutral-400 dark:group-hover:border-neutral-600 transition-colors duration-500">
+                    [Image Placeholder]
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-2 tracking-tight group-hover:underline decoration-2 underline-offset-4">THE DOME</h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 text-sm mb-4 leading-relaxed font-light">A social hangout experience with integrated music systems and interactive environments.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest">Roblox Studio</span>
+                        <span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest">Lua</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gray-800 rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-blue-500/20 transition duration-300 border border-gray-700">
-                <div class="h-48 bg-gray-700 flex items-center justify-center text-gray-500">[Image Placeholder]</div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-white mb-2">3D-Reconstructor</h3>
-                    <p class="text-gray-400 text-sm mb-4">Tool utilizing TripoSR and KD-Tree structures to convert 2D images into voxelized environments.</p>
-                    <div class="flex gap-2 text-xs font-semibold text-blue-400">
-                        <span class="bg-blue-500/10 px-2 py-1 rounded">Python</span>
-                        <span class="bg-blue-500/10 px-2 py-1 rounded">Deep Learning</span>
+            <div class="group cursor-pointer">
+                <div class="w-full aspect-[4/3] bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400 mb-6 group-hover:border-neutral-400 dark:group-hover:border-neutral-600 transition-colors duration-500">
+                    [Image Placeholder]
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-2 tracking-tight group-hover:underline decoration-2 underline-offset-4">3D-Reconstructor</h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 text-sm mb-4 leading-relaxed font-light">Tool utilizing TripoSR and KD-Tree structures to convert 2D images into voxelized environments.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest">Python</span>
+                        <span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest">Deep Learning</span>
                     </div>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <footer class="border-t border-neutral-200 dark:border-neutral-800">
+        <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 uppercase tracking-widest">
+            <p>&copy; 2026 RAA.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-black dark:hover:text-white transition-colors">GitHub</a>
+                <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Email</a>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
