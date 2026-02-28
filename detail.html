@@ -18,35 +18,34 @@
     </script>
 </head>
 
-<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-500 ease-in-out relative min-h-screen flex flex-col">
+<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-1000 ease-in-out relative min-h-screen flex flex-col">
 
     <div class="fixed inset-0 pointer-events-none z-[-1000] overflow-hidden flex items-center justify-center opacity-[0.03] dark:opacity-[0.05] transition-opacity duration-500 ease-in-out">
         <svg id="wireframe-accent" class="w-[120vw] md:w-[80vw] h-auto max-w-5xl text-black dark:text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.3">
-            <path d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" stroke-linejoin="round"/>
-            <path d="M50 5 L50 50 L95 27.5 M50 50 L5 27.5 M50 50 L50 95" stroke-linejoin="round"/>
-            <path d="M27.5 16.25 L72.5 83.75 M72.5 16.25 L27.5 83.75" stroke-dasharray="1 2" stroke-width="0.2"/>
+            <path d="M50 10 L85 27.5 L85 72.5 L50 90 L15 72.5 L15 27.5 Z" stroke-linejoin="round"/>
+            <path d="M50 10 L50 90 M85 27.5 L15 72.5 M15 27.5 L85 72.5" stroke-dasharray="1 2" stroke-width="0.2"/>
         </svg>
     </div>
 
     <main class="max-w-5xl mx-auto w-full px-6 py-16 flex-grow relative z-10">
-        <a href="/index.html" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-black dark:hover:text-white transition-colors mb-12">
+        <a href="/index.html" class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-black dark:hover:text-white transition-colors mb-12 relative z-10">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
             Back to Projects
         </a>
 
-        <div id="project-detail-container" class="transition-colors duration-500 ease-in-out">
-            <p class="text-neutral-500 animate-pulse text-sm tracking-widest uppercase">Loading project details...</p>
+        <div id="project-detail-container" class="transition-colors duration-1000 ease-in-out relative z-10">
+            <p class="text-neutral-500 animate-pulse text-sm tracking-widest uppercase relative z-10">Loading project details...</p>
         </div>
     </main>
 
-    <footer class="border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-500 ease-in-out mt-auto relative z-10">
+    <footer class="border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out relative z-10 mt-auto">
         <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 uppercase tracking-widest">
             <p>&copy; 2026 RAA.</p>
-            <div class="flex gap-6 mt-4 md:mt-0">
-                <a href="https://github.com/reggyarios" target="_blank" class="hover:text-black dark:hover:text-white transition-colors focus:outline-none">GitHub</a>
-                <a href="mailto:reggyarauna7@gmail.com" class="hover:text-black dark:hover:text-white transition-colors focus:outline-none">Email</a>
+            <div class="flex gap-6 mt-4 md:mt-0 relative z-10">
+                <a href="https://github.com/reggyarios" target="_blank" class="hover:text-black dark:hover:text-white transition-colors focus:outline-none relative">GitHub</a>
+                <a href="mailto:reggyarauna7@gmail.com" class="hover:text-black dark:hover:text-white transition-colors focus:outline-none relative">Email</a>
             </div>
         </div>
     </footer>

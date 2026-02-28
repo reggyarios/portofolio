@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
-// LOGIC THEME TOGGLE
+// LOGIC THEME TOGGLE (Di HTML menggunakan duration-1000)
 // ==========================================
 function initThemeToggle() {
     const themeToggleBtn = document.getElementById('theme-toggle');
@@ -69,35 +69,38 @@ function initProfileModal() {
 }
 
 // ==========================================
-// LOGIC DYNAMIC BACKGROUND ACCENT
+// LOGIC DYNAMIC BACKGROUND ACCENT (Hanya Rotasi)
 // ==========================================
 function initDynamicAccent() {
     const accent = document.getElementById('wireframe-accent');
     if (!accent) return;
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let scrollY = 0;
+    let pointerRotationAngle = 0; // Rotasi berdasarkan mouse
+    let scrollRotationAngle = 0; // Rotasi berdasarkan scroll
 
-    // Mouse Parallax dengan nilai agresif -1000 sesuai eksperimenmu
+    // Mouse Interaction: Hanya Rotasi Halus berdasarkan posisi X mouse
     window.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        // Kalkulasi posisi X mouse relatif terhadap tengah layar (-1 sampai 1)
+        const xRelative = (e.clientX / window.innerWidth - 0.5) * 2;
         
-        mouseX = x * -1000; 
-        mouseY = y * -1000;
+        // Map posisi X mouse ke rotasi halus (misal max +/- 15 derajat)
+        pointerRotationAngle = xRelative * 15; 
         updateAccent();
     });
 
-    // Scroll Rotation
+    // Scroll Rotation: Rotasi gradual saat di-scroll
     window.addEventListener('scroll', () => {
-        scrollY = window.scrollY * 0.05; 
+        // Kecepatan putaran scroll (misal 0.05 derajat per 1px scroll)
+        scrollRotationAngle = window.scrollY * 0.05; 
         updateAccent();
     });
 
+    // Fungsi untuk menggabungkan kedua efek rotasi secara mulus
     function updateAccent() {
         requestAnimationFrame(() => {
-            accent.style.transform = `translate(${mouseX}px, ${mouseY}px) rotate(${scrollY}deg)`;
+            // Gabungkan kedua rotasi, posisi (translate) tetap diam di tengah
+            const totalRotation = pointerRotationAngle + scrollRotationAngle;
+            accent.style.transform = `rotate(${totalRotation}deg)`;
         });
     }
 }
