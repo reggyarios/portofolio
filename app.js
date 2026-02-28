@@ -62,7 +62,7 @@ function initProfileModal() {
 }
 
 // ==========================================
-// LOGIC HALAMAN UTAMA (INDEX)
+// LOGIC HALAMAN UTAMA (INDEX) - AMAN
 // ==========================================
 async function initHome() {
     const container = document.getElementById('projects-container');
@@ -81,18 +81,11 @@ async function initHome() {
         const techs = proj.tech_stack.split(',').map(t => t.trim());
         let techHTML = techs.map(t => `<span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest rounded-none">${t}</span>`).join('');
 
-        // Ambil gambar pertama sebagai cover (karena image_url sekarang bisa berisi banyak link)
-        const coverMedia = proj.image_url.split(',')[0].trim();
-        const isVideo = coverMedia.match(/\.(mp4|webm|ogg)$/i);
-        
-        let mediaTag = isVideo 
-            ? `<video src="${coverMedia}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" muted loop autoplay playsinline></video>`
-            : `<img src="${coverMedia}" alt="${proj.title}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" loading="lazy">`;
-
+        // Menggunakan image_url bersih tanpa split
         const card = `
             <a href="/detail.html?id=${proj.id}" class="group flex flex-col bg-white dark:bg-[#0a0a0a] rounded-none overflow-hidden transition-all duration-500 ease-out hover:-translate-y-4 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_50px_-10px_rgba(255,255,255,0.25)] active:scale-[0.98] active:translate-y-0 active:shadow-none cursor-pointer relative z-10 hover:z-20 border border-transparent dark:border-neutral-900 hover:border-neutral-100 dark:hover:border-neutral-800">
                 <div class="relative w-full aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-100 dark:border-neutral-900 flex-shrink-0">
-                    ${mediaTag}
+                    <img src="${proj.image_url}" alt="${proj.title}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" loading="lazy">
                 </div>
                 <div class="p-6 md:p-8 flex flex-col flex-grow justify-between">
                     <div>
@@ -126,8 +119,13 @@ async function initDetail() {
         return;
     }
     
-    // Pecah array media
-    const medias = proj.image_url.split(',').map(url => url.trim());
+    // Gabungkan Thumbnail utama dan Gallery URLs
+    let medias = [proj.image_url];
+    if (proj.gallery_urls && proj.gallery_urls.trim() !== "") {
+        const extraMedias = proj.gallery_urls.split(',').map(url => url.trim());
+        medias = medias.concat(extraMedias);
+    }
+
     const techs = proj.tech_stack.split(',').map(t => t.trim());
     let techHTML = techs.map(t => `<span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest">${t}</span>`).join('');
 
@@ -140,7 +138,6 @@ async function initDetail() {
         return `<img src="${url}" alt="Project Media" class="${classes}">`;
     };
 
-    // Buat HTML Thumbnails
     let thumbnailsHTML = '';
     if (medias.length > 1) {
         thumbnailsHTML = `<div class="flex gap-4 mt-4 overflow-x-auto pb-4 scrollbar-hide">`;
@@ -168,7 +165,6 @@ async function initDetail() {
         </div>`;
     }
 
-    // Urutan: Judul -> Tag -> Main Media -> Thumbnails -> Deskripsi -> Tombol
     container.innerHTML = `
         <div class="mb-10">
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-6">${proj.title}</h1>
@@ -187,18 +183,14 @@ async function initDetail() {
         ${actionButtonHTML}
     `;
 
-    // Logic Interaktif Gallery Steam
     if (medias.length > 1) {
         const mainContainer = document.getElementById('main-media-container');
         const thumbs = document.querySelectorAll('.gallery-thumb');
         
         thumbs.forEach(thumb => {
             thumb.addEventListener('click', function() {
-                // Update Main Media
                 const url = this.getAttribute('data-url');
-                mainContainer.innerHTML = renderMediaTag(url, 'w-full h-full object-contain bg-black'); // object-contain agar video utuh
-
-                // Update Style Thumbnails (Garis Tepi & Opacity)
+                mainContainer.innerHTML = renderMediaTag(url, 'w-full h-full object-contain bg-black'); 
                 thumbs.forEach(t => {
                     t.classList.remove('border-black', 'dark:border-white', 'opacity-100');
                     t.classList.add('border-transparent', 'opacity-50');
@@ -211,10 +203,11 @@ async function initDetail() {
 }
 
 // ==========================================
-// LOGIC HALAMAN ADMIN (FULL CRUD)
+// LOGIC HALAMAN ADMIN (DUAL UPLOAD)
 // ==========================================
-let editingProjectId = null; // Menyimpan ID jika sedang mode Edit
-let existingMediaUrls = ""; // Menyimpan URL lama jika tidak upload foto baru saat edit
+let editingProjectId = null; 
+let existingImageUrl = ""; 
+let existingGalleryUrls = ""; 
 
 async function initAdmin() {
     const loginScreen = document.getElementById('login-screen');
@@ -223,7 +216,6 @@ async function initAdmin() {
     const logoutBtn = document.getElementById('logout-btn');
     const addProjectForm = document.getElementById('add-project-form');
     
-    // Elemen Form untuk Edit
     const formTitle = document.getElementById('form-title');
     const submitBtn = document.getElementById('submit-btn');
     const cancelEditBtn = document.getElementById('cancel-edit-btn');
@@ -259,11 +251,11 @@ async function initAdmin() {
         checkSession();
     });
 
-    // Handle Cancel Edit
     if(cancelEditBtn) {
         cancelEditBtn.addEventListener('click', () => {
             editingProjectId = null;
-            existingMediaUrls = "";
+            existingImageUrl = "";
+            existingGalleryUrls = "";
             addProjectForm.reset();
             formTitle.textContent = "Add New Project";
             submitBtn.textContent = "Save Project";
@@ -281,58 +273,69 @@ async function initAdmin() {
         const tech_stack = document.getElementById('proj-tech').value;
         const demo_url = document.getElementById('proj-demo').value;
         const description = document.getElementById('proj-desc').value;
-        const imageInput = document.getElementById('proj-image');
         
-        let finalMediaUrlString = existingMediaUrls; // Default ke media lama (jika ada)
+        const coverInput = document.getElementById('proj-image');
+        const galleryInput = document.getElementById('proj-gallery');
+        
+        let finalImageUrl = existingImageUrl;
+        let finalGalleryUrls = existingGalleryUrls;
 
-        // Jika ada file baru yang diupload (berlaku untuk Insert Baru atau Edit Replace)
-        if (imageInput.files && imageInput.files.length > 0) {
+        // 1. Upload Cover Thumbnail (Single)
+        if (coverInput.files && coverInput.files.length > 0) {
+            const file = coverInput.files[0];
+            const fileExt = file.name.split('.').pop();
+            const fileName = `cover_${Date.now()}_${Math.random().toString(36).substr(2, 5)}.${fileExt}`; 
+
+            const { error: uploadError } = await supabase.storage.from('portfolio-images').upload(fileName, file);
+            if (!uploadError) {
+                const { data: publicUrlData } = supabase.storage.from('portfolio-images').getPublicUrl(fileName);
+                finalImageUrl = publicUrlData.publicUrl;
+            }
+        } else if (!editingProjectId) {
+            alert('Tolong pilih Thumbnail Cover!');
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+            return;
+        }
+
+        // 2. Upload Gallery (Multiple)
+        if (galleryInput && galleryInput.files && galleryInput.files.length > 0) {
             let uploadedUrls = [];
-            for (let file of imageInput.files) {
+            for (let file of galleryInput.files) {
                 const fileExt = file.name.split('.').pop();
-                const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 5)}.${fileExt}`; 
+                const fileName = `gallery_${Date.now()}_${Math.random().toString(36).substr(2, 5)}.${fileExt}`; 
 
-                const { data: uploadData, error: uploadError } = await supabase.storage
-                    .from('portfolio-images')
-                    .upload(fileName, file);
-
+                const { error: uploadError } = await supabase.storage.from('portfolio-images').upload(fileName, file);
                 if (!uploadError) {
                     const { data: publicUrlData } = supabase.storage.from('portfolio-images').getPublicUrl(fileName);
                     uploadedUrls.push(publicUrlData.publicUrl);
                 }
             }
             if (uploadedUrls.length > 0) {
-                finalMediaUrlString = uploadedUrls.join(','); // Gabungkan dengan koma
+                finalGalleryUrls = uploadedUrls.join(',');
             }
-        } else if (!editingProjectId) {
-            alert('Tolong pilih minimal 1 gambar/video preview.');
-            submitBtn.textContent = originalBtnText;
-            submitBtn.disabled = false;
-            return;
         }
 
         if (editingProjectId) {
-            // Proses UPDATE
             const { error: updateError } = await supabase.from('projects')
-                .update({ title, description, image_url: finalMediaUrlString, tech_stack, demo_url })
+                .update({ title, description, image_url: finalImageUrl, gallery_urls: finalGalleryUrls, tech_stack, demo_url })
                 .eq('id', editingProjectId);
                 
             if (updateError) alert('Gagal Update: ' + updateError.message);
             else alert('Project berhasil diperbarui!');
         } else {
-            // Proses INSERT
             const { error: insertError } = await supabase.from('projects').insert([{
-                title, description, image_url: finalMediaUrlString, tech_stack, demo_url
+                title, description, image_url: finalImageUrl, gallery_urls: finalGalleryUrls, tech_stack, demo_url
             }]);
             
             if (insertError) alert('Gagal Simpan: ' + insertError.message);
             else alert('Project berhasil ditambahkan!');
         }
         
-        // Reset Form & State
         addProjectForm.reset();
         editingProjectId = null;
-        existingMediaUrls = "";
+        existingImageUrl = "";
+        existingGalleryUrls = "";
         if(formTitle) formTitle.textContent = "Add New Project";
         if(cancelEditBtn) cancelEditBtn.classList.add('hidden');
         submitBtn.textContent = "Save Project";
@@ -368,7 +371,6 @@ async function loadAdminProjects() {
     });
 }
 
-// Global Edit Function
 window.editProject = async function(id) {
     const { data: proj, error } = await supabase.from('projects').select('*').eq('id', id).single();
     if(error) return alert("Gagal mengambil data project.");
@@ -378,11 +380,10 @@ window.editProject = async function(id) {
     document.getElementById('proj-demo').value = proj.demo_url || '';
     document.getElementById('proj-desc').value = proj.description;
     
-    // Set status editing
     editingProjectId = proj.id;
-    existingMediaUrls = proj.image_url; // Simpan URL lama
+    existingImageUrl = proj.image_url; 
+    existingGalleryUrls = proj.gallery_urls || ""; 
 
-    // Ubah UI Form
     const formTitle = document.getElementById('form-title');
     const submitBtn = document.getElementById('submit-btn');
     const cancelEditBtn = document.getElementById('cancel-edit-btn');
@@ -391,7 +392,7 @@ window.editProject = async function(id) {
     if(submitBtn) submitBtn.textContent = "Update Project";
     if(cancelEditBtn) cancelEditBtn.classList.remove('hidden');
 
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll ke atas
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 window.deleteProject = async function(id) {
