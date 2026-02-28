@@ -10,7 +10,7 @@ const currentPath = window.location.pathname;
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initProfileModal();
-    initDynamicAccent(); // Memanggil efek background interaktif
+    initDynamicAccent(); // Memanggil efek 3D background
 
     if (currentPath.includes('access.html')) {
         initAdmin();
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
-// LOGIC THEME TOGGLE (Di HTML menggunakan duration-1000)
+// LOGIC THEME TOGGLE
 // ==========================================
 function initThemeToggle() {
     const themeToggleBtn = document.getElementById('theme-toggle');
@@ -69,38 +69,44 @@ function initProfileModal() {
 }
 
 // ==========================================
-// LOGIC DYNAMIC BACKGROUND ACCENT (Hanya Rotasi)
+// LOGIC DYNAMIC BACKGROUND ACCENT (3D TILT & Z-SPIN)
 // ==========================================
 function initDynamicAccent() {
     const accent = document.getElementById('wireframe-accent');
     if (!accent) return;
 
-    let pointerRotationAngle = 0; // Rotasi berdasarkan mouse
-    let scrollRotationAngle = 0; // Rotasi berdasarkan scroll
+    let rotX = 0; // Rotasi sumbu X (Pitch - Up/Down)
+    let rotY = 0; // Rotasi sumbu Y (Yaw - Left/Right)
+    let rotZ = 0; // Rotasi sumbu Z (Roll - Spin dari scroll)
 
-    // Mouse Interaction: Hanya Rotasi Halus berdasarkan posisi X mouse
+    // Mouse Interaction: Sumbu X dan Y
     window.addEventListener('mousemove', (e) => {
-        // Kalkulasi posisi X mouse relatif terhadap tengah layar (-1 sampai 1)
+        // Kalkulasi dari tengah layar (-1 sampai 1)
         const xRelative = (e.clientX / window.innerWidth - 0.5) * 2;
+        const yRelative = (e.clientY / window.innerHeight - 0.5) * 2;
         
-        // Map posisi X mouse ke rotasi halus (misal max +/- 15 derajat)
-        pointerRotationAngle = xRelative * 15; 
+        // Gerakan mouse horizontal (X) memutar objek pada sumbu Y
+        rotY = xRelative * 25; // Maksimal putaran 25 derajat
+        
+        // Gerakan mouse vertikal (Y) memutar objek pada sumbu X
+        // Kita gunakan minus (-) agar pergerakannya terasa natural (tilt ke arah mouse)
+        rotX = -yRelative * 25; 
+        
         updateAccent();
     });
 
-    // Scroll Rotation: Rotasi gradual saat di-scroll
+    // Scroll Interaction: Sumbu Z
     window.addEventListener('scroll', () => {
-        // Kecepatan putaran scroll (misal 0.05 derajat per 1px scroll)
-        scrollRotationAngle = window.scrollY * 0.05; 
+        // Scroll ke bawah akan memutar objek di poros tengahnya (sumbu Z)
+        rotZ = window.scrollY * 0.05; 
         updateAccent();
     });
 
-    // Fungsi untuk menggabungkan kedua efek rotasi secara mulus
+    // Terapkan Transform dengan Perspective
     function updateAccent() {
         requestAnimationFrame(() => {
-            // Gabungkan kedua rotasi, posisi (translate) tetap diam di tengah
-            const totalRotation = pointerRotationAngle + scrollRotationAngle;
-            accent.style.transform = `rotate(${totalRotation}deg)`;
+            // perspective() wajib di depan agar efek 3D X dan Y tercipta
+            accent.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`;
         });
     }
 }
