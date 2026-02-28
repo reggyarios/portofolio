@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Portfolio</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png?v=2">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { darkMode: 'class' }
@@ -17,7 +17,7 @@
         }
     </script>
 </head>
-<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-300 min-h-screen">
+<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-500 ease-in-out min-h-screen">
 
     <nav class="p-6 max-w-5xl mx-auto flex justify-end items-center border-b border-transparent">
         <button id="theme-toggle" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
@@ -47,27 +47,33 @@
     <div id="dashboard-screen" class="max-w-5xl mx-auto px-6 py-8" style="display: none;">
         <div class="flex justify-between items-center mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-6">
             <h1 class="text-2xl font-extrabold tracking-widest uppercase">Project Manager</h1>
-            <button id="logout-btn" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors">Logout</button>
+            <button id="logout-btn" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">Logout</button>
         </div>
 
-        <div class="mb-16 border border-neutral-200 dark:border-neutral-800 p-8 bg-neutral-50 dark:bg-neutral-900/50">
-            <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 mb-8">Add New Item</h2>
+        <div class="mb-16 border border-neutral-200 dark:border-neutral-800 p-8 bg-neutral-50 dark:bg-neutral-900/50 transition-colors">
+            <h2 id="form-title" class="text-sm font-semibold tracking-widest uppercase text-neutral-500 mb-8">Add New Project</h2>
             <form id="add-project-form" class="space-y-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <input type="text" id="proj-title" placeholder="Project Title" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
                     
                     <div class="w-full">
-                        <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-1">Upload Image Cover</label>
-                        <input type="file" id="proj-image" accept="image/*" class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-widest file:bg-neutral-200 file:text-neutral-700 hover:file:bg-neutral-300 dark:file:bg-neutral-800 dark:file:text-neutral-300 dark:hover:file:bg-neutral-700 transition-colors cursor-pointer focus:outline-none" required>
+                        <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-1">Upload Media (Multiple Images/Videos)</label>
+                        <input type="file" id="proj-image" accept="image/*,video/*" multiple class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-widest file:bg-neutral-200 file:text-neutral-700 hover:file:bg-neutral-300 dark:file:bg-neutral-800 dark:file:text-neutral-300 dark:hover:file:bg-neutral-700 transition-colors cursor-pointer focus:outline-none">
                     </div>
 
                     <input type="text" id="proj-tech" placeholder="Tech Stack (comma separated)" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors md:col-span-2" required>
                     <input type="text" id="proj-demo" placeholder="Demo/Play Link (Optional)" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors md:col-span-2">
                     <textarea id="proj-desc" placeholder="Project Description" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors md:col-span-2 h-24 resize-none" required></textarea>
                 </div>
-                <button type="submit" class="bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors mt-4">
-                    Save Project
-                </button>
+                
+                <div class="flex flex-wrap gap-4 mt-8">
+                    <button type="submit" id="submit-btn" class="bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors">
+                        Save Project
+                    </button>
+                    <button type="button" id="cancel-edit-btn" class="hidden bg-red-500 text-white font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-red-600 transition-colors focus:outline-none">
+                        Cancel Edit
+                    </button>
+                </div>
             </form>
         </div>
 
