@@ -17,10 +17,17 @@
         }
     </script>
 </head>
+<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-500 ease-in-out relative min-h-screen">
 
-<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-1000 ease-in-out relative">
+    <div class="fixed inset-0 pointer-events-none z-[-1000] overflow-hidden flex items-center justify-center opacity-[0.03] dark:opacity-[0.05] transition-opacity duration-500 ease-in-out">
+        <svg id="wireframe-accent" class="w-[120vw] md:w-[80vw] h-auto max-w-5xl text-black dark:text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.3">
+            <path d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" stroke-linejoin="round"/>
+            <path d="M50 5 L50 50 L95 27.5 M50 50 L5 27.5 M50 50 L50 95" stroke-linejoin="round"/>
+            <path d="M27.5 16.25 L72.5 83.75 M72.5 16.25 L27.5 83.75" stroke-dasharray="1 2" stroke-width="0.2"/>
+        </svg>
+    </div>
 
-    <nav class="p-6 max-w-5xl mx-auto flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out">
+    <nav class="p-6 max-w-5xl mx-auto flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 transition-colors duration-500 ease-in-out relative z-10">
         <button id="profile-btn" class="text-xl font-extrabold tracking-widest uppercase hover:text-neutral-500 transition-colors focus:outline-none">
             RAA.
         </button>
@@ -29,19 +36,19 @@
         </button>
     </nav>
 
-    <header class="max-w-5xl mx-auto px-6 py-24 flex flex-col justify-center min-h-[50vh]">
+    <header class="max-w-5xl mx-auto px-6 py-24 flex flex-col justify-center min-h-[50vh] relative z-10">
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 leading-tight">
             Building Immersive <br> 
-            <span class="text-neutral-400 dark:text-neutral-500 transition-colors duration-1000 ease-in-out">Digital Worlds.</span>
+            <span class="text-neutral-400 dark:text-neutral-500 transition-colors duration-500 ease-in-out">Digital Worlds.</span>
         </h1>
-        <p class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed font-light transition-colors duration-1000 ease-in-out">
+        <p class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed font-light transition-colors duration-500 ease-in-out">
             Professional Game Developer & Environment Builder. Specializing in Lua scripting, procedural generation, and high-fidelity interactive experiences.
         </p>
     </header>
 
-    <section class="max-w-5xl mx-auto px-6 pb-32">
+    <section class="max-w-5xl mx-auto px-6 pb-32 relative z-10">
         <div class="flex justify-between items-end mb-10">
-            <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 transition-colors duration-1000 ease-in-out">Selected Works</h2>
+            <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 transition-colors duration-500 ease-in-out">Selected Works</h2>
         </div>
         
         <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -49,9 +56,9 @@
         </div>
     </section>
 
-    <footer class="border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out">
+    <footer class="border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-500 ease-in-out relative z-10">
         <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 uppercase tracking-widest">
-            <p>&copy; 2026 - Created by Reggy Arauna Aritonang</p>
+            <p>&copy; 2026 RAA.</p>
             <div class="flex gap-6 mt-4 md:mt-0">
                 <a href="https://github.com/reggyarios" target="_blank" class="hover:text-black dark:hover:text-white transition-colors focus:outline-none">GitHub</a>
                 <a href="mailto:reggyarauna7@gmail.com" class="hover:text-black dark:hover:text-white transition-colors focus:outline-none">Email</a>
@@ -60,26 +67,22 @@
     </footer>
 
     <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-        <div id="modal-backdrop" class="absolute inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm cursor-pointer transition-colors duration-1000 ease-in-out"></div>
+        <div id="modal-backdrop" class="absolute inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm cursor-pointer transition-colors duration-500 ease-in-out"></div>
         
         <div id="modal-content" class="relative bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-8 md:p-12 max-w-lg w-full mx-6 transform scale-95 transition-all duration-300 shadow-2xl rounded-none">
-            
             <button id="close-modal" class="absolute top-6 right-6 text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18 6L6 18M6 6l12 12"></path>
                 </svg>
             </button>
-            
             <h3 class="text-2xl font-extrabold tracking-tight mb-1">Reggy Arauna Aritonang, S.Kom</h3>
             <p class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-6">Medan, Indonesia</p>
-            
-            <div class="space-y-4 text-neutral-600 dark:text-neutral-400 font-light leading-relaxed text-sm transition-colors duration-1000 ease-in-out">
+            <div class="space-y-4 text-neutral-600 dark:text-neutral-400 font-light leading-relaxed text-sm transition-colors duration-500 ease-in-out">
                 <p>A professional game developer and environment builder specializing in Lua scripting, procedural generation, and high-fidelity interactive experiences within the Roblox engine.</p>
                 <p>Experienced in managing complex virtual simulation projects—from competitive RNG obstacle courses to executing highly accurate 1:1 digital twins for real-world spatial familiarization events.</p>
                 <p>Equipped with a strong academic and practical background in 3D reconstruction pipelines, specifically focusing on converting 2D images into robust 3D voxel models.</p>
             </div>
-            
-            <div class="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out">
+            <div class="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-500 ease-in-out">
                 <a href="mailto:reggyarauna7@gmail.com" class="inline-block bg-black text-white dark:bg-white dark:text-black px-6 py-3 text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity rounded-none">
                     Get in Touch
                 </a>

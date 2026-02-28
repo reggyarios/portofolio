@@ -10,6 +10,7 @@ const currentPath = window.location.pathname;
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initProfileModal();
+    initDynamicAccent(); // Memanggil efek background interaktif
 
     if (currentPath.includes('access.html')) {
         initAdmin();
@@ -20,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ==========================================
+// LOGIC THEME TOGGLE
+// ==========================================
 function initThemeToggle() {
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (!themeToggleBtn) return;
@@ -35,6 +39,9 @@ function initThemeToggle() {
     });
 }
 
+// ==========================================
+// LOGIC PROFILE MODAL
+// ==========================================
 function initProfileModal() {
     const profileBtn = document.getElementById('profile-btn');
     const profileModal = document.getElementById('profile-modal');
@@ -62,7 +69,41 @@ function initProfileModal() {
 }
 
 // ==========================================
-// LOGIC HALAMAN UTAMA (INDEX) - AMAN
+// LOGIC DYNAMIC BACKGROUND ACCENT
+// ==========================================
+function initDynamicAccent() {
+    const accent = document.getElementById('wireframe-accent');
+    if (!accent) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let scrollY = 0;
+
+    // Mouse Parallax dengan nilai agresif -1000 sesuai eksperimenmu
+    window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        
+        mouseX = x * -1000; 
+        mouseY = y * -1000;
+        updateAccent();
+    });
+
+    // Scroll Rotation
+    window.addEventListener('scroll', () => {
+        scrollY = window.scrollY * 0.05; 
+        updateAccent();
+    });
+
+    function updateAccent() {
+        requestAnimationFrame(() => {
+            accent.style.transform = `translate(${mouseX}px, ${mouseY}px) rotate(${scrollY}deg)`;
+        });
+    }
+}
+
+// ==========================================
+// LOGIC HALAMAN UTAMA (INDEX)
 // ==========================================
 async function initHome() {
     const container = document.getElementById('projects-container');
@@ -81,7 +122,6 @@ async function initHome() {
         const techs = proj.tech_stack.split(',').map(t => t.trim());
         let techHTML = techs.map(t => `<span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest rounded-none">${t}</span>`).join('');
 
-        // Menggunakan image_url bersih tanpa split
         const card = `
             <a href="/detail.html?id=${proj.id}" class="group flex flex-col bg-white dark:bg-[#0a0a0a] rounded-none overflow-hidden transition-all duration-500 ease-out hover:-translate-y-4 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_50px_-10px_rgba(255,255,255,0.25)] active:scale-[0.98] active:translate-y-0 active:shadow-none cursor-pointer relative z-10 hover:z-20 border border-transparent dark:border-neutral-900 hover:border-neutral-100 dark:hover:border-neutral-800">
                 <div class="relative w-full aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-100 dark:border-neutral-900 flex-shrink-0">
@@ -119,7 +159,6 @@ async function initDetail() {
         return;
     }
     
-    // Gabungkan Thumbnail utama dan Gallery URLs
     let medias = [proj.image_url];
     if (proj.gallery_urls && proj.gallery_urls.trim() !== "") {
         const extraMedias = proj.gallery_urls.split(',').map(url => url.trim());
@@ -203,7 +242,7 @@ async function initDetail() {
 }
 
 // ==========================================
-// LOGIC HALAMAN ADMIN (DUAL UPLOAD)
+// LOGIC HALAMAN ADMIN
 // ==========================================
 let editingProjectId = null; 
 let existingImageUrl = ""; 
@@ -280,7 +319,6 @@ async function initAdmin() {
         let finalImageUrl = existingImageUrl;
         let finalGalleryUrls = existingGalleryUrls;
 
-        // 1. Upload Cover Thumbnail (Single)
         if (coverInput.files && coverInput.files.length > 0) {
             const file = coverInput.files[0];
             const fileExt = file.name.split('.').pop();
@@ -298,7 +336,6 @@ async function initAdmin() {
             return;
         }
 
-        // 2. Upload Gallery (Multiple)
         if (galleryInput && galleryInput.files && galleryInput.files.length > 0) {
             let uploadedUrls = [];
             for (let file of galleryInput.files) {
