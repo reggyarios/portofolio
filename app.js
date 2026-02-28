@@ -76,6 +76,9 @@ function initProfileModal() {
 // ==========================================
 // LOGIC HALAMAN UTAMA (INDEX.HTML)
 // ==========================================
+// ==========================================
+// LOGIC HALAMAN UTAMA (INDEX.HTML)
+// ==========================================
 async function initHome() {
     const container = document.getElementById('projects-container');
     if (!container) return;
@@ -96,17 +99,20 @@ async function initHome() {
     
     projects.forEach(proj => {
         const techs = proj.tech_stack.split(',').map(t => t.trim());
-        let techHTML = techs.map(t => `<span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest rounded-full">${t}</span>`).join('');
+        // Tag teknologinya juga saya ubah jadi sharp (rounded-none) biar serasi
+        let techHTML = techs.map(t => `<span class="border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-3 py-1 text-[10px] uppercase tracking-widest rounded-none">${t}</span>`).join('');
 
-        // Desain Card Baru (Hover Up, Light Shadow, Dark Backlit)
+        // Desain Card Baru: Sharp Corners, Tanpa Border Luar, Gambar Inset, Shadow Lebih Tebal
         const card = `
-            <a href="/detail.html?id=${proj.id}" class="group flex flex-col bg-white dark:bg-[#0a0a0a] border border-neutral-100 dark:border-neutral-900 rounded-2xl overflow-hidden transition-all duration-500 ease-out hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_15px_40px_-15px_rgba(255,255,255,0.15)] cursor-pointer">
+            <a href="/detail.html?id=${proj.id}" class="group flex flex-col bg-white dark:bg-[#0a0a0a] rounded-none overflow-hidden transition-all duration-500 ease-out hover:-translate-y-4 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_50px_-10px_rgba(255,255,255,0.25)] cursor-pointer relative z-10 hover:z-20">
                 
-                <div class="relative aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-100 dark:border-neutral-900 flex-shrink-0">
-                    <img src="${proj.image_url}" alt="${proj.title}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" loading="lazy">
+                <div class="p-5 md:p-6 pb-0 flex-shrink-0">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-none">
+                        <img src="${proj.image_url}" alt="${proj.title}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" loading="lazy">
+                    </div>
                 </div>
                 
-                <div class="p-6 flex flex-col flex-grow justify-between">
+                <div class="p-5 md:p-6 flex flex-col flex-grow justify-between">
                     <div>
                         <h3 class="text-2xl font-bold tracking-tight mb-2 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">${proj.title}</h3>
                         <p class="text-neutral-600 dark:text-neutral-400 text-sm mb-6 leading-relaxed font-light line-clamp-2">${proj.description}</p>
