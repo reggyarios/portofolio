@@ -61,7 +61,7 @@
     <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
         <div id="modal-backdrop" class="absolute inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm cursor-pointer"></div>
         
-        <div id="modal-content" class="relative bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-8 md:p-12 max-w-lg w-full mx-6 transform scale-95 transition-transform duration-300 shadow-2xl">
+        <div id="modal-content" class="relative bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 p-8 md:p-12 max-w-lg w-full mx-6 transform scale-95 transition-transform duration-300 shadow-2xl rounded-2xl">
             
             <button id="close-modal" class="absolute top-6 right-6 text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -79,38 +79,12 @@
             </div>
             
             <div class="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800">
-                <a href="mailto:reggyarauna7@gmail.com" class="inline-block bg-black text-white dark:bg-white dark:text-black px-6 py-3 text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity">
+                <a href="mailto:reggyarauna7@gmail.com" class="inline-block bg-black text-white dark:bg-white dark:text-black px-6 py-3 text-xs font-bold uppercase tracking-widest rounded-lg hover:opacity-80 transition-opacity">
                     Get in Touch
                 </a>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const profileBtn = document.getElementById('profile-btn');
-            const profileModal = document.getElementById('profile-modal');
-            const closeModal = document.getElementById('close-modal');
-            const modalBackdrop = document.getElementById('modal-backdrop');
-            const modalContent = document.getElementById('modal-content');
-
-            function openProfile() {
-                profileModal.classList.remove('opacity-0', 'pointer-events-none');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }
-
-            function closeProfile() {
-                profileModal.classList.add('opacity-0', 'pointer-events-none');
-                modalContent.classList.remove('scale-100');
-                modalContent.classList.add('scale-95');
-            }
-
-            profileBtn.addEventListener('click', openProfile);
-            closeModal.addEventListener('click', closeProfile);
-            modalBackdrop.addEventListener('click', closeProfile);
-        });
-    </script>
 
     <script type="module" src="app.js"></script>
 </body>
