@@ -20,9 +20,7 @@
 <body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-500 ease-in-out min-h-screen">
 
     <nav class="p-6 max-w-5xl mx-auto flex justify-end items-center border-b border-transparent">
-        <button id="theme-toggle" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
-            Toggle Theme
-        </button>
+        <button id="theme-toggle" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">Toggle Theme</button>
     </nav>
 
     <div id="login-screen" class="flex items-center justify-center h-[80vh] px-6">
@@ -37,9 +35,7 @@
                     <label class="block text-xs tracking-widest uppercase text-neutral-500 mb-2">Password</label>
                     <input type="password" id="password" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
                 </div>
-                <button type="submit" class="w-full bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-4 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors mt-4">
-                    Sign In
-                </button>
+                <button type="submit" class="w-full bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-4 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors mt-4">Sign In</button>
             </form>
         </div>
     </div>
@@ -56,15 +52,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <input type="text" id="proj-title" placeholder="Project Title" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
                     
-                    <div class="w-full md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="w-full md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8 bg-white dark:bg-[#0a0a0a] border border-neutral-200 dark:border-neutral-800 p-6">
                         <div class="w-full">
-                            <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-1">Thumbnail Cover (1 Gambar)</label>
-                            <input type="file" id="proj-image" accept="image/*" class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-widest file:bg-neutral-200 file:text-neutral-700 hover:file:bg-neutral-300 dark:file:bg-neutral-800 dark:file:text-neutral-300 dark:hover:file:bg-neutral-700 transition-colors cursor-pointer focus:outline-none">
+                            <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-2">Thumbnail Cover (1 Gambar)</label>
+                            <input type="file" id="proj-image" accept="image/*" class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:bg-neutral-200 file:text-neutral-700 cursor-pointer">
+                            <div id="existing-thumbnail-preview" class="mt-4 hidden"></div>
                         </div>
 
-                        <div class="w-full">
-                            <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-1">Gallery Preview (Banyak Gambar/Video)</label>
-                            <input type="file" id="proj-gallery" accept="image/*,video/*" multiple class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-widest file:bg-neutral-200 file:text-neutral-700 hover:file:bg-neutral-300 dark:file:bg-neutral-800 dark:file:text-neutral-300 dark:hover:file:bg-neutral-700 transition-colors cursor-pointer focus:outline-none">
+                        <div class="w-full border-t md:border-t-0 md:border-l border-neutral-200 dark:border-neutral-800 md:pl-8 pt-6 md:pt-0">
+                            <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-2">Gallery Preview (Add More Images/Videos)</label>
+                            <input type="file" id="proj-gallery" accept="image/*,video/*" multiple class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:bg-neutral-200 file:text-neutral-700 cursor-pointer">
+                            <div id="existing-gallery-preview" class="mt-4 hidden flex-col gap-2"></div>
                         </div>
                     </div>
 
@@ -74,12 +72,8 @@
                 </div>
                 
                 <div class="flex flex-wrap gap-4 mt-8">
-                    <button type="submit" id="submit-btn" class="bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors">
-                        Save Project
-                    </button>
-                    <button type="button" id="cancel-edit-btn" class="hidden bg-red-500 text-white font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-red-600 transition-colors focus:outline-none">
-                        Cancel Edit
-                    </button>
+                    <button type="submit" id="submit-btn" class="bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors">Save Project</button>
+                    <button type="button" id="cancel-edit-btn" class="hidden bg-red-500 text-white font-semibold uppercase tracking-widest text-xs py-3 px-8 hover:bg-red-600 transition-colors focus:outline-none">Cancel Edit</button>
                 </div>
             </form>
         </div>
