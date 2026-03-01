@@ -16,8 +16,12 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-1000 ease-in-out relative min-h-screen overflow-x-hidden">
+<body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-1000 ease-in-out relative min-h-screen overflow-x-hidden flex flex-col">
 
     <div class="fixed inset-0 pointer-events-none z-[-1000] flex items-center justify-center opacity-[0.03] dark:opacity-[0.05] transition-opacity duration-500 ease-in-out">
         <svg id="wireframe-accent" class="w-[120vw] md:w-[80vw] h-auto max-w-5xl text-black dark:text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.3">
@@ -26,7 +30,7 @@
         </svg>
     </div>
 
-    <nav class="p-6 max-w-5xl mx-auto flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out relative z-10">
+    <nav class="p-6 max-w-5xl mx-auto w-full flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out relative z-10">
         <button id="profile-btn" class="text-xl font-extrabold tracking-widest uppercase hover:text-neutral-500 transition-colors focus:outline-none relative">
             RAA.
         </button>
@@ -45,7 +49,7 @@
         </p>
     </header>
 
-    <section class="max-w-5xl mx-auto px-6 pb-32 relative z-10">
+    <section class="max-w-5xl mx-auto px-6 pb-32 relative z-10 flex-grow">
         <div class="flex justify-between items-end mb-10">
             <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 transition-colors duration-1000 ease-in-out">Selected Works</h2>
         </div>
@@ -67,21 +71,19 @@
     <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
         <div id="modal-backdrop" class="absolute inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-md cursor-pointer transition-colors duration-1000 ease-in-out"></div>
         
-        <div id="modal-content" class="relative max-w-sm w-full mx-6 transform scale-95 transition-all duration-300 [perspective:1000px] z-10 h-[440px]">
+        <div id="modal-content" class="relative max-w-xs w-full mx-6 transform scale-95 transition-all duration-300 [perspective:1000px] z-10 h-[460px] rounded-none">
             
             <div id="flip-inner" class="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] cursor-pointer shadow-2xl rounded-none" onclick="this.classList.toggle('[transform:rotateY(180deg)]')">
                 
                 <div class="absolute inset-0 w-full h-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-none [backface-visibility:hidden] flex flex-col overflow-hidden">
                     
-                    <div class="h-[60%] w-full bg-neutral-200 dark:bg-neutral-800">
+                    <div class="h-[70%] w-full bg-neutral-200 dark:bg-neutral-800">
                         <img src="profile.jpeg" alt="Reggy Profile" class="w-full h-full object-cover">
                     </div>
                     
-                    <div class="h-[40%] p-6 pb-4 flex flex-col items-center justify-center text-center bg-white dark:bg-neutral-900">
-                        <h3 class="text-xl font-bold tracking-tight mb-1 flex items-center gap-2">
-                            Reggy Arauna
-                        </h3>
-                        <p class="text-[10px] text-neutral-500 font-bold mb-4 uppercase tracking-widest">Game Dev & Project Manager</p>
+                    <div class="h-[30%] p-4 flex flex-col items-center justify-center text-center bg-white dark:bg-neutral-900 border-t border-neutral-100 dark:border-neutral-800/50">
+                        <h3 class="text-lg font-bold tracking-tight mb-0.5">Reggy Arauna</h3>
+                        <p class="text-[9px] text-neutral-500 font-bold mb-3 uppercase tracking-widest">Game Dev & Project Manager</p>
                         
                         <div class="flex gap-6 text-neutral-400 dark:text-neutral-500">
                             <a href="https://linkedin.com/in/reggy-arauna" class="hover:text-black dark:hover:text-white transition-colors" onclick="event.stopPropagation()" aria-label="LinkedIn">
@@ -98,20 +100,21 @@
                             </a>
                         </div>
                         
-                        <p class="mt-auto text-[10px] text-neutral-400 uppercase tracking-widest animate-pulse pt-2">Click card to flip</p>
+                        <p class="mt-auto text-[9px] text-neutral-400 uppercase tracking-widest pt-1.5 border-t border-neutral-100 dark:border-neutral-800 w-full">Click card to flip</p>
                     </div>
                 </div>
 
-                <div class="absolute inset-0 w-full h-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-none [backface-visibility:hidden] [transform:rotateY(180deg)] p-8 flex flex-col justify-center text-center">
-                    <h3 class="text-lg font-bold tracking-widest uppercase mb-6">About Me</h3>
-                    
-                    <div class="space-y-4 text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-                        <p>An alumnus of Universitas Sumatera Utara (USU) equipped with a strong academic background in 3D reconstruction pipelines.</p>
-                        <p>Specializing in Lua scripting, procedural generation, and executing highly accurate 1:1 digital twins for real-world spatial familiarization events.</p>
-                        <p>Currently building high-fidelity interactive experiences within the Roblox engine.</p>
+                <div class="absolute inset-0 w-full h-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-none [backface-visibility:hidden] [transform:rotateY(180deg)] p-6 pt-5 pb-3 flex flex-col justify-between text-center">
+                    <div>
+                        <h3 class="text-sm font-bold tracking-widest uppercase mb-4">About Me</h3>
+                        <div class="space-y-3 text-[13px] text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+                            <p>An alumnus of Universitas Sumatera Utara (USU) equipped with a strong academic background in 3D reconstruction pipelines.</p>
+                            <p>Specializing in Lua scripting, procedural generation, and executing highly accurate 1:1 digital twins for real-world spatial familiarization events.</p>
+                            <p>Currently building high-fidelity interactive experiences within the Roblox engine.</p>
+                        </div>
                     </div>
                     
-                    <p class="mt-auto text-[10px] text-neutral-400 uppercase tracking-widest animate-pulse pt-4">Click to flip back</p>
+                    <p class="text-[9px] text-neutral-400 uppercase tracking-widest animate-pulse pt-1.5 border-t border-neutral-100 dark:border-neutral-800 w-full">Click to flip back</p>
                 </div>
 
             </div>
