@@ -75,26 +75,22 @@ function initProfileModal() {
 // ==========================================
 function initDynamicAccent() {
     const container = document.getElementById('webgl-container');
-    // Pastikan container ada dan script Three.js sudah ter-load dari CDN
     if (!container || typeof THREE === 'undefined') return;
 
-    // 1. Setup Scene, Camera, & Renderer (Dioptimasi untuk performa web)
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     
     renderer.setSize(window.innerWidth, window.innerHeight);
-    // Batasi Pixel Ratio agar enteng di device layar Retina
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 2. Deteksi Tema untuk menyesuaikan warna garis
     const isDark = document.documentElement.classList.contains('dark');
     const colorHex = isDark ? 0xffffff : 0x000000;
-    const lineOpacity = isDark ? 0.10 : 0.06;
+    const lineOpacity = isDark ? 0.12 : 0.06;
 
-    // 3. Buat Objek Icosahedron (Parameter 0 = Low Poly asli)
-    const geometry = new THREE.IcosahedronGeometry(14, 0); 
+    // 3. Buat Objek Icosahedron (Radius dinaikkan dari 14 ke 20 agar ~40% lebih besar)
+    const geometry = new THREE.IcosahedronGeometry(20, 0); 
     const wireframe = new THREE.WireframeGeometry(geometry);
     const material = new THREE.LineBasicMaterial({ 
         color: colorHex, 
@@ -102,62 +98,50 @@ function initDynamicAccent() {
         opacity: lineOpacity 
     });
     
-    // LineSegments digunakan alih-alih Mesh agar tembus pandang (pure wireframe)
     const icosahedron = new THREE.LineSegments(wireframe, material);
     scene.add(icosahedron);
     
-    // Geser kamera ke belakang agar objek terlihat
+    // Posisi kamera tetap
     camera.position.z = 35;
 
-    // 4. Variabel untuk menampung target pergerakan mouse/scroll
     let targetRotX = 0;
     let targetRotY = 0;
     let scrollRotZ = 0;
 
-    // Tangkap posisi kursor mouse
     window.addEventListener('mousemove', (e) => {
         const xRelative = (e.clientX / window.innerWidth - 0.5) * 2;
         const yRelative = (e.clientY / window.innerHeight - 0.5) * 2;
-        // Mouse X memutar objek di sumbu Y (kiri-kanan)
         targetRotY = xRelative * 0.4; 
-        // Mouse Y memutar objek di sumbu X (atas-bawah)
         targetRotX = yRelative * 0.4; 
     });
 
-    // Tangkap event scroll
     window.addEventListener('scroll', () => {
         scrollRotZ = window.scrollY * 0.001;
     });
 
-    // Responsif jika ukuran layar browser diubah
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // 5. Pantau perubahan tema dari tombol Toggle
     const observer = new MutationObserver(() => {
         const dark = document.documentElement.classList.contains('dark');
         material.color.setHex(dark ? 0xffffff : 0x000000);
-        material.opacity = dark ? 0.10 : 0.06;
+        material.opacity = dark ? 0.12 : 0.06;
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    // 6. Animation Loop (Lerp untuk pergerakan super mulus)
     function animate() {
         requestAnimationFrame(animate);
         
-        // Memutar objek secara bertahap menuju posisi target kursor (Interpolasi halus / Lerp)
         icosahedron.rotation.y += (targetRotY - icosahedron.rotation.y) * 0.05;
         icosahedron.rotation.x += (targetRotX - icosahedron.rotation.x) * 0.05;
-        // Z Rotation murni mengikuti scroll
         icosahedron.rotation.z = scrollRotZ; 
         
         renderer.render(scene, camera);
     }
     
-    // Mulai animasi
     animate();
 }
 
