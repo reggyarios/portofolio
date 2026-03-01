@@ -34,14 +34,15 @@
 </head>
 <body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-1000 ease-in-out relative min-h-screen overflow-x-hidden flex flex-col">
 
-    <div class="fixed inset-0 pointer-events-none z-[-1000] flex items-center justify-center opacity-[0.06] dark:opacity-[0.10] transition-opacity duration-1000 ease-in-out">
-        <svg id="wireframe-accent" class="w-[120vw] md:w-[80vw] h-auto max-w-6xl text-black dark:text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.3">
-            <path d="M50 10 L85 27.5 L85 72.5 L50 90 L15 72.5 L15 27.5 Z" stroke-linejoin="round"/>
-            <path d="M50 10 L50 90 M85 27.5 L15 72.5 M15 27.5 L85 72.5" stroke-dasharray="1 2" stroke-width="0.2"/>
+    <div class="fixed inset-0 pointer-events-none z-[-1000] flex items-center justify-center opacity-[0.06] dark:opacity-[0.12] transition-opacity duration-1000 ease-in-out">
+        <svg id="wireframe-accent" class="w-[120vw] md:w-[75vw] h-auto max-w-[1080px] text-black dark:text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.25">
+            <path d="M50 5 L89 27.5 L89 72.5 L50 95 L11 72.5 L11 27.5 Z" stroke-linejoin="round"/>
+            <path d="M50 28 L72 65 L28 65 Z" stroke-linejoin="round"/>
+            <path d="M50 5 L50 28 M89 27.5 L50 28 M89 27.5 L72 65 M89 72.5 L72 65 M50 95 L72 65 M50 95 L28 65 M11 72.5 L28 65 M11 27.5 L28 65 M11 27.5 L50 28" stroke-linejoin="round"/>
         </svg>
     </div>
 
-    <nav class="p-6 max-w-6xl mx-auto w-full flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out relative z-10 animate-fade-in-up">
+    <nav class="p-6 max-w-[1080px] mx-auto w-full flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out relative z-10 animate-fade-in-up">
         <button id="profile-btn" class="text-xl font-extrabold tracking-widest uppercase hover:text-neutral-500 transition-colors focus:outline-none relative">
             RAA.
         </button>
@@ -50,17 +51,17 @@
         </button>
     </nav>
 
-    <header class="max-w-6xl mx-auto w-full px-6 py-24 flex flex-col justify-center min-h-[50vh] relative z-10">
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 leading-tight transition-colors duration-1000 ease-in-out animate-fade-in-up delay-100">
-            Code & <br> 
-            <span class="text-neutral-400 dark:text-neutral-500 transition-colors duration-1000 ease-in-out">Digital.</span>
+    <header class="max-w-[1080px] mx-auto w-full px-6 py-24 flex flex-col justify-center min-h-[50vh] relative z-10">
+        <h1 class="font-extrabold tracking-tighter mb-6 leading-tight transition-colors duration-1000 ease-in-out animate-fade-in-up delay-100">
+            <span class="text-5xl md:text-7xl">Code &</span> <br> 
+            <span class="text-4xl md:text-6xl text-neutral-400 dark:text-neutral-500 transition-colors duration-1000 ease-in-out">Digital.</span>
         </h1>
         <p class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed font-light transition-colors duration-1000 ease-in-out animate-fade-in-up delay-200">
             Software Engineer. I build games, structure data, and manage technical systems.
         </p>
     </header>
 
-    <section class="max-w-6xl mx-auto w-full px-6 pb-32 relative z-10 flex-grow animate-fade-in-up delay-200">
+    <section class="max-w-[1080px] mx-auto w-full px-6 pb-32 relative z-10 flex-grow animate-fade-in-up delay-200">
         <div class="flex justify-between items-end mb-10">
             <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 transition-colors duration-1000 ease-in-out">Selected Works</h2>
         </div>
@@ -70,7 +71,7 @@
     </section>
 
     <footer class="border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-1000 ease-in-out relative z-10 mt-auto animate-fade-in-up delay-200">
-        <div class="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 uppercase tracking-widest">
+        <div class="max-w-[1080px] mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 uppercase tracking-widest">
             <p>&copy; 2026 RAA.</p>
             <div class="flex gap-6 mt-4 md:mt-0 relative z-10">
                 <a href="https://github.com/reggyarios" target="_blank" class="hover:text-black dark:hover:text-white transition-colors focus:outline-none relative">GitHub</a>
@@ -115,17 +116,17 @@
                     </div>
                 </div>
 
-                <div class="absolute inset-0 w-full h-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-none [backface-visibility:hidden] [transform:rotateY(180deg)] p-6 md:p-8 pt-5 md:pt-8 pb-3 md:pb-5 flex flex-col justify-between text-center">
+                <div class="absolute inset-0 w-full h-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-none [backface-visibility:hidden] [transform:rotateY(180deg)] p-6 md:p-8 pt-5 md:pt-8 pb-3 md:pb-5 flex flex-col justify-between text-left">
                     <div>
-                        <h3 class="text-sm md:text-base font-bold tracking-widest uppercase mb-4 md:mb-6">About Me</h3>
-                        <div class="space-y-3 md:space-y-4 text-[13px] md:text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-                            <p>An S.Kom graduate from Universitas Sumatera Utara (USU) with expertise spanning game development, AI integration, and software engineering.</p>
-                            <p>Experienced in delivering diverse digital products—from high-fidelity Roblox simulations and UI/UX design, to robust Python data automation and IoT systems.</p>
-                            <p>Passionate about managing cross-functional projects and bridging creative vision with technical architecture.</p>
+                        <h3 class="text-sm md:text-base font-bold tracking-widest uppercase mb-4 md:mb-6 text-center">About Me</h3>
+                        <div class="space-y-3 md:space-y-4 text-[13px] md:text-[14px] text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+                            <p>I'm Reggy. I engineer functional systems and design immersive digital spaces.</p>
+                            <p>With an S.Kom from Universitas Sumatera Utara, my work sits at the intersection of logic and experience—ranging from AI 3D reconstruction and automated data pipelines to scripting complex mechanics in Roblox.</p>
+                            <p>I focus on building things that scale, look good, and actually work.</p>
                         </div>
                     </div>
                     
-                    <p class="text-[9px] md:text-[10px] text-neutral-400 uppercase tracking-widest animate-pulse pt-1.5 md:pt-2 border-t border-neutral-100 dark:border-neutral-800 w-full">Click to flip back</p>
+                    <p class="text-[9px] md:text-[10px] text-neutral-400 uppercase tracking-widest animate-pulse pt-1.5 md:pt-2 border-t border-neutral-100 dark:border-neutral-800 w-full text-center">Click to flip back</p>
                 </div>
 
             </div>
