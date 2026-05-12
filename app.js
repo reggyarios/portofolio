@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initProfileModal();
     initDynamicAccent();
 
-    if (currentPath.includes('access.html')) {
+    if (currentPath.includes('access')) {
         initAdmin();
-    } else if (currentPath.includes('detail.html')) {
+    } else if (currentPath.includes('detail')) {
         initDetail();
     } else {
         initHome();
@@ -563,3 +563,4 @@ window.deleteProject = async function(id) {
         if(window.location.pathname.includes('access.html')) initAdmin(); 
     }
 }
+
