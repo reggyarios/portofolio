@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Portfolio</title>
+    <title>Admin Access - Reggy Arauna</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { darkMode: 'class' }
     </script>
     <script>
+        // Theme initialization
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -19,14 +20,27 @@
 </head>
 <body class="bg-white text-neutral-900 dark:bg-black dark:text-white font-sans antialiased selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-500 ease-in-out min-h-screen">
 
-    <nav class="p-6 max-w-5xl mx-auto flex justify-end items-center border-b border-transparent">
-        <button id="theme-toggle" class="text-xs font-semibold tracking-widest uppercase text-neutral-500 hover:text-black dark:hover:text-white transition-colors focus:outline-none">Toggle Theme</button>
+    <nav class="p-6 max-w-5xl mx-auto flex justify-between items-center border-b border-transparent">
+        <a href="/" class="text-xl font-extrabold tracking-widest uppercase hover:text-neutral-500 transition-colors focus:outline-none">
+            RAA.
+        </a>
+        
+        <button id="theme-toggle" class="group flex items-center gap-2.5 focus:outline-none cursor-pointer p-2 -mr-2" aria-label="Toggle Theme">
+            <svg class="w-4 h-4 text-black dark:text-neutral-700 group-hover:text-black dark:group-hover:text-neutral-400 transition-colors duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="12" y1="3" x2="12" y2="21"></line>
+            </svg>
+
+            <svg class="w-4 h-4 text-neutral-300 dark:text-white group-hover:text-neutral-500 dark:group-hover:text-white transition-colors duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="9"></circle>
+            </svg>
+        </button>
     </nav>
 
     <div id="login-screen" class="flex items-center justify-center h-[80vh] px-6">
         <div class="p-10 border border-neutral-200 dark:border-neutral-800 w-full max-w-md bg-neutral-50 dark:bg-neutral-900/50">
             <h2 class="text-xl font-extrabold tracking-widest uppercase text-center mb-10">Admin Access</h2>
-            <form id="login-form" class="space-y-8">
+            
+            <form id="login-form" class="space-y-8" onsubmit="event.preventDefault();">
                 <div>
                     <label class="block text-xs tracking-widest uppercase text-neutral-500 mb-2">Email</label>
                     <input type="email" id="email" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
@@ -35,7 +49,9 @@
                     <label class="block text-xs tracking-widest uppercase text-neutral-500 mb-2">Password</label>
                     <input type="password" id="password" class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 py-2 focus:outline-none focus:border-black dark:focus:border-white transition-colors" required>
                 </div>
-                <button type="submit" class="w-full bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-4 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors mt-4">Sign In</button>
+                <button type="submit" class="w-full bg-black text-white dark:bg-white dark:text-black font-semibold uppercase tracking-widest text-xs py-4 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors mt-4">
+                    Sign In
+                </button>
             </form>
         </div>
     </div>
@@ -60,7 +76,7 @@
                         </div>
 
                         <div class="w-full border-t md:border-t-0 md:border-l border-neutral-200 dark:border-neutral-800 md:pl-8 pt-6 md:pt-0">
-                            <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-2">Gallery Preview (Add More Images/Videos)</label>
+                            <label class="block text-[10px] tracking-widest uppercase text-neutral-500 mb-2">Gallery Preview (Images/Videos)</label>
                             <input type="file" id="proj-gallery" accept="image/*,video/*" multiple class="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:uppercase file:bg-neutral-200 file:text-neutral-700 cursor-pointer">
                             <div id="existing-gallery-preview" class="mt-4 hidden flex-col gap-2"></div>
                         </div>
@@ -81,7 +97,7 @@
         <div>
             <h2 class="text-sm font-semibold tracking-widest uppercase text-neutral-500 mb-6">Existing Projects</h2>
             <div id="projects-list" class="space-y-4">
-                <p class="text-neutral-500 text-sm tracking-widest uppercase">Loading...</p>
+                <p class="text-neutral-500 text-sm tracking-widest uppercase">Loading projects...</p>
             </div>
         </div>
     </div>
