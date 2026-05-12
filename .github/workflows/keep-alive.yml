@@ -1,0 +1,30 @@
+name: Supabase Keep Alive
+
+# Jadwal eksekusi: Setiap 3 hari sekali pada jam 00:00 UTC
+on:
+  schedule:
+    - cron: '0 0 */3 * *'
+  # Memungkinkan kita menjalankan script ini secara manual jika dibutuhkan
+  workflow_dispatch:
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Supabase REST API
+        env:
+          # GANTI DENGAN URL SUPABASE-MU
+          SUPABASE_URL: "https://xyz123.supabase.co" 
+          # GANTI DENGAN ANON KEY SUPABASE-MU
+          SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX..." 
+        run: |
+          echo "Pinging Supabase to prevent project pause..."
+          
+          # Melakukan request GET ringan ke tabel 'projects' (Ganti kalau nama tabelmu beda)
+          # Parameter limit=1 agar datanya super kecil dan ringan
+          curl -sS -X GET "${SUPABASE_URL}/rest/v1/projects?select=*&limit=1" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}"
+            
+          echo "Ping successful!"
